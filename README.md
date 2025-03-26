@@ -3,5 +3,5 @@
 - Isabel Sofía Maldonado Roa
 - Daniel Guillermo Espinosa Parra.
 
-## introducción:
+## INTRODUCCIÓN:
 
