@@ -14,7 +14,7 @@ El análisis de señales EMG permite evaluar la fatiga muscular a través de cam
 - scipy.signal
 - scipy.fftpack
 
-## Adquisición de la señal EMG:
+## ADQUSICIÓN DE LA SEÑAL EMG:
 
   
 
