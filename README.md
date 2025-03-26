@@ -36,3 +36,39 @@ def filtrar_senal(senal, fs, lowcut=20, highcut=450): # Se crea la funcuón para
     
 ```
 
+## Analísis de la señal a partir de la transformada de Fourier. 
+
+En este caso para el código en python con respecto al analisis, se utilizó un metodo de ventanas par poder dividir o seccionar la señal para analizarla de manera más completa y facil, en python se realizó de la siguiente manera
+  
+```bash
+def analizar_ventanas(senal, fs, ventana_size=1024, overlap=512): # Divide la señal en segmentos  con un intervalo llamado overlap  para hacer análisis espectral de la señal.
+    step = ventana_size - overlap 
+    num_ventanas = (len(senal) - overlap) // step 
+    frecuencias = np.fft.fftfreq(ventana_size, d=1/fs) # Se calculan las transformadas de fourier correspondientes 
+    espectros = []
+    medianas = []
+
+
+```
+Luego se calculo la transdormada individualmente para apliclarla ventana por ventana. 
+
+```bash
+ for i in range(num_ventanas):
+        start = i * step
+        end = start + ventana_size
+        if end > len(senal):
+            break
+        ventana = senal[start:end] * np.hamming(ventana_size) # Se aplica la ventana de hamming para evitar discontinuidades
+        fft_senal = np.abs(fft(ventana))[:ventana_size//2] # Se calcula la transformada y se almacena solo la mitad del espectro
+        espectros.append(fft_senal)
+```
+
+## Calculos de fercuencia: 
+
+```bash
+    potencias = fft_senal ** 2
+        total_potencia = np.sum(potencias)
+        suma_parcial = np.cumsum(potencias)
+        mediana_freq = frecuencias[:ventana_size//2][np.where(suma_parcial >= total_potencia / 2)[0][0]]
+        medianas.append(mediana_freq)
+```
