@@ -8,12 +8,11 @@ El análisis de señales EMG permite evaluar la fatiga muscular a través de cam
 
 ## REQUERIMIENTOS: 
 
--  Interfaz de python (para este caso 3.12)
+- Interfaz de python (para este caso 3.12)
 - numpy 
-- scipy.io.wavfile 
-- matplotlib.pyplot 
-- scipy.signal 
-- sklearn.decomposition 
-- sounddevice
+- matplotlib.pyplot
+- scipy.signal
+- scipy.fftpack
+  
 
 
