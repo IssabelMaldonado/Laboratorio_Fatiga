@@ -1,2 +1,2 @@
-# Laboratorio 4 Fatiga muscular
+# Laboratorio_4_Fatiga_muscular
 
