@@ -19,7 +19,15 @@ Como primera medida para adquirir la señal EMG, se utilizaron 3 electrodos en p
 
 ![image](https://github.com/user-attachments/assets/248ef36c-4496-4c9b-af65-1869b8352d5a)
 
-En donde dos electrodos (encerrados en color rojo) se ubican sobre el músculo para captar la actividad eléctrica, mientras que uno (en verde) se sitúa en una zona más estable, actuando como referencia o tierra para reducir interferencias. Esta disposición es común en estudios de electromiografía de superficie.
+En donde dos electrodos (encerrados en color rojo) se ubican sobre el músculo para captar la actividad eléctrica, mientras que uno (en verde) se sitúa en una zona más estable, actuando como referencia o tierra para reducir interferencias. Esta disposición es común en estudios de electromiografía de superficie, en cuanto al procedimiento físico a realizar por la persona tuvo que realizar contracciones musculares durante aproximadamente 5 minutos para poder así llevar al músculo a su fatiga y tomar los datos solicitados. 
 
 
-a
+## Filtrado de la señal: 
+En este caso para las especificaciones dadaas por el laboratorio se necesitó un filtro BUtterworth pasa banda de orden 4 para poder tener una mayor efeiciencia y a la vez una mayor atenuación del ruido ya que es de orden 4, en el código de python se implementó de la siguiente manera: 
+
+´´´bash
+def filtrar_senal(senal, fs, lowcut=20, highcut=450):
+    nyq = 0.5 * fs
+    b, a = signal.butter(4, [lowcut / nyq, highcut / nyq], btype='band')
+    return signal.filtfilt(b, a, senal)
+´´´
