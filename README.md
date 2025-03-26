@@ -25,9 +25,14 @@ En donde dos electrodos (encerrados en color rojo) se ubican sobre el músculo p
 ## Filtrado de la señal: 
 En este caso para las especificaciones dadaas por el laboratorio se necesitó un filtro BUtterworth pasa banda de orden 4 para poder tener una mayor efeiciencia y a la vez una mayor atenuación del ruido ya que es de orden 4, en el código de python se implementó de la siguiente manera: 
 
-´´´bash
-def filtrar_senal(senal, fs, lowcut=20, highcut=450):
-    nyq = 0.5 * fs
-    b, a = signal.butter(4, [lowcut / nyq, highcut / nyq], btype='band')
-    return signal.filtfilt(b, a, senal)
-´´´
+```bash
+
+def filtrar_senal(senal, fs, lowcut=20, highcut=450): # Se crea la funcuón para filtrar la señal poniendo la frecuencias de corte tanto bajas ( 20 Hz ) Y altas ( 450 Hz)  
+    nyq = 0.5 * fs # Se calcula la frecuencia de Nyquist con la frecuencia de muestreo.
+    b, a = signal.butter(4, [lowcut / nyq, highcut / nyq], btype='band') # Al usal signal.butter al filtro de le da la caracteristica de que es Butterworth 
+    return signal.filtfilt(b, a, senal) # Se aplica signal.filtfilt() para filtrar la señal sin generar desfases
+
+
+    
+```
+
