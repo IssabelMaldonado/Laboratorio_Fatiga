@@ -19,7 +19,7 @@ Como primera medida para adquirir la señal EMG, se utilizaron 3 electrodos en p
 
 ![image](https://github.com/user-attachments/assets/248ef36c-4496-4c9b-af65-1869b8352d5a)
 
-En donde dos electrodos (encerrados en color rojo) se ubican sobre el músculo para captar la actividad eléctrica, mientras que uno (en verde) se sitúa en una zona más estable, actuando como referencia o tierra para reducir interferencias. Esta disposición es común en estudios de electromiografía de superficie, en cuanto al procedimiento físico a realizar por la persona tuvo que realizar contracciones musculares durante aproximadamente 5 minutos para poder así llevar al músculo a su fatiga y tomar los datos solicitados. 
+Dos electrodos (marcados en rojo) se colocaron sobre el músculo para captar su actividad eléctrica, mientras que otro (en verde) se ubicó en una zona más estable, funcionando como referencia o tierra para minimizar interferencias. Esta configuración es habitual en estudios de electromiografía de superficie. Durante el procedimiento, la persona realizó contracciones musculares durante aproximadamente 2 minutos para inducir la fatiga. Sin embargo, al no ser muy frecuentes, los resultados reflejan un nivel bajo de fatiga.
 
 
 ## Filtrado de la señal: 
