@@ -109,6 +109,11 @@ if verificar_datos(datos):
     graficar_datos(datos)
 
 ```
+Luego de ejecutar el código, se obtuvo la señal guardada con la extención deseada, Además los datos se gráficaron y el resultado se muestra a continuación:
+
+![image](https://github.com/user-attachments/assets/a3a6c445-7e20-4194-8e5b-649227fa6aaa)
+
+
 
 
 
