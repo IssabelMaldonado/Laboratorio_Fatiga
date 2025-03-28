@@ -13,6 +13,8 @@ El análisis de señales EMG permite evaluar la fatiga muscular a través de cam
 - matplotlib.pyplot
 - scipy.signal
 - scipy.fftpack
+- nidaqmx
+- time
 
 ## ADQUSICIÓN DE LA SEÑAL EMG:
 Como primera medida para adquirir la señal EMG, se utilizaron 3 electrodos en posiciones especificas, las cuales se mostraran en la siguiente imagen:
