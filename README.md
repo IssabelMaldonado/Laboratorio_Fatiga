@@ -165,12 +165,67 @@ Luego se calculo la transdormada individualmente para apliclarla ventana por ven
 ## Calculos de fercuencia: 
 
 ```bash
-    potencias = fft_senal ** 2
+    potencias = fft_senal ** 2 Se #calcula la potencia espectral
         total_potencia = np.sum(potencias)
         suma_parcial = np.cumsum(potencias)
         mediana_freq = frecuencias[:ventana_size//2][np.where(suma_parcial >= total_potencia / 2)[0][0]]
-        medianas.append(mediana_freq)
+        medianas.append(mediana_freq)   # se almacena en medianas. 
 ```
 
 ![image](https://github.com/user-attachments/assets/517591c7-f695-4a40-8333-67bd333264da)
 
+## Calculo de la fatiga múscular 
+
+```bash
+def calcular_fatiga(medianas):  
+    return (medianas[0] - medianas[-1]) / medianas[0] * 100 # A partir de la fórmula se calcula la fatiga
+```
+   ![Captura de pantalla (6)](https://github.com/user-attachments/assets/e77678d7-14bc-4fb4-a1da-a93b07294b73)
+
+## Se calcula la prueba de hipotesis:
+
+```bash
+def prueba_hipotesis(medianas):
+    mitad = len(medianas) // 2
+    if len(medianas) % 2 != 0:
+        medianas = medianas[:-1]  # Eliminar el utimo elemento si es impar
+    grupo_inicial = medianas[:mitad]
+    grupo_final = medianas[mitad:] 
+    
+    t_stat, p_value = ttest_rel(grupo_inicial, grupo_final) # se usa ttest_rel() para comparar ambos grupos
+
+```
+luego de esto se realiza el analisis por medio de python que dice si el valor de la prueba de hipotesis es menor a 0,05 se puede afirmar que el cambio fue significativo. 
+
+```bash
+    if p_value < 0.05:
+        conclusion = "El cambio en la frecuencia mediana es estadísticamente significativo (p < 0.05)"
+    else:
+        conclusion = "No hay evidencia estadística suficiente para afirmar un cambio significativo (p >= 0.05)"
+    
+    return t_stat, p_value, conclusion
+```
+# Gráficas: 
+En esta parte se explica como se graficaron las diferentes señales :
+
+```bash
+plt.figure(figsize=(12, 8))
+
+plt.subplot(3, 1, 1)
+plt.plot(senal_emg, label='Señal EMG Original', color='steelblue')
+plt.legend()
+plt.title('Señal EMG Original')
+
+plt.subplot(3, 1, 2)
+plt.plot(senal_filtrada, label='Señal Filtrada', color='darkorange')
+plt.legend()
+plt.title('Señal EMG Filtrada')
+
+plt.subplot(3, 1, 3)
+plt.plot(medianas, label='Frecuencia Mediana', color='purple')
+plt.title(f'Evolución de la Frecuencia Mediana (Fatiga: {fatiga:.2f}%)\n{conclusion}')
+plt.legend()
+
+plt.tight_layout()
+plt.show(
+```
