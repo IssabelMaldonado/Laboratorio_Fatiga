@@ -21,6 +21,8 @@ Como primera medida para adquirir la señal EMG, se utilizaron 3 electrodos en p
 
 Dos electrodos (marcados en rojo) se colocaron sobre el músculo para captar su actividad eléctrica, mientras que otro (en verde) se ubicó en una zona más estable, funcionando como referencia o tierra para minimizar interferencias. Esta configuración es habitual en estudios de electromiografía de superficie. Durante el procedimiento, la persona realizó contracciones musculares durante aproximadamente 2 minutos para inducir la fatiga. Sin embargo, al no ser muy frecuentes, los resultados reflejan un nivel bajo de fatiga.
 
+### TOMA DE LA SEÑAL MEDIANTE LA DAQ:
+
 
 ## Filtrado de la señal: 
 En este caso para las especificaciones dadaas por el laboratorio se necesitó un filtro BUtterworth pasa banda de orden 4 para poder tener una mayor efeiciencia y a la vez una mayor atenuación del ruido ya que es de orden 4, en el código de python se implementó de la siguiente manera: 
