@@ -105,7 +105,7 @@ def graficar_datos(data):
 # Adquirir, verificar, guardar y graficar datos, se llama a loas funciones definidas para que se ejecuten
 datos = adquirir_datos()
 if verificar_datos(datos):
-    guardar_datos_npy(datos, FILENAME_NPY)
+    guardar_datos_npy(datos, ARCHIVO)
     graficar_datos(datos)
 
 ```
