@@ -21,7 +21,10 @@ Como primera medida para adquirir la señal EMG, se utilizaron 3 electrodos en p
 
 Dos electrodos (marcados en rojo) se colocaron sobre el músculo para captar su actividad eléctrica, mientras que otro (en verde) se ubicó en una zona más estable, funcionando como referencia o tierra para minimizar interferencias. Esta configuración es habitual en estudios de electromiografía de superficie. Durante el procedimiento, la persona realizó contracciones musculares durante aproximadamente 2 minutos para inducir la fatiga. Sin embargo, al no ser muy frecuentes, los resultados reflejan un nivel bajo de fatiga.
 
-### TOMA DE LA SEÑAL MEDIANTE LA DAQ:
+### TOMA DE LA SEÑAL MEDIANTE DAQ:
+La DAQ (Data Acquisition) es un sistema que captura y digitaliza señales del entorno para su análisis. Para esta práctica la señal electromiografía enviada por el sensor, es recibida por el dispositivo mediante un ADC luego se envía mediante una conexión al computador.Emplando la documentación referenciada en la guía propuesta, se reailzó un programa en python para grabar los datos de la señal y almacenarlos en un archivo .npy.
+
+
 
 
 ## Filtrado de la señal: 
