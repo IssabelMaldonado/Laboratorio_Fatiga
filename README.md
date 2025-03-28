@@ -26,6 +26,91 @@ Dos electrodos (marcados en rojo) se colocaron sobre el músculo para captar su 
 ### TOMA DE LA SEÑAL MEDIANTE DAQ:
 La DAQ (Data Acquisition) es un sistema que captura y digitaliza señales del entorno para su análisis. Para esta práctica la señal electromiográfica enviada por el sensor es recibida por el dispositivo mediante un ADC luego se envía mediante una conexión al computador.Emplando la documentación referenciada en la guía propuesta, se reailzó un programa en python para grabar los datos de la señal y almacenarlos en un archivo .npy.
 
+El código implementado para captar la señal, se muestra a continuación:
+
+```bash
+import nidaqmx  ## Permite la comunicación con el hardware DAQ de National Instruments.
+import numpy as np ## manejar los datos adquiridos como arreglos numéricos 
+import time ## Se emplea para medir tiempos y mostrar progreso en la adquisición.
+import matplotlib.pyplot as plt ## libreria para gráficar los datos adquiridos
+
+# Configuración
+DAQ = "Dev1"      # Nombre del dispositivo DAQ
+CANAL = "ai1"          # Canal de entrada analógica
+FM = 1000     # Frecuencia de muestreo en Hz
+TIME = 120           # Duración de la adquisición en segundos (2 minutos)
+ARCHIVO = "datos_señal.npy"  # Archivo para guardar en formato NumPy
+
+def adquirir_datos():
+    numMUE= FM * TIME # Número total de muestras a adquirir
+    data = np.zeros(numMUE)  #  crea un arreglo de ceros con el tamaño total de muestras para almacenar los datos
+    
+    with nidaqmx.Task() as task: ## Se crea una tarea para la adquisición de datos.
+        task.ai_channels.add_ai_voltage_chan(f"{DAQ}/{CANAL}") ## Se añade un canal analógico para medir voltaje.
+        task.timing.cfg_samp_clk_timing(FM, samps_per_chan=num_samples) ## Se configura el reloj de muestreo con la frecuencia deseada.
+
+        print(f"Adquiriendo datos durante {TIME// 60} minutos...") ## Muestra un mensaje indicando que la adquisición ha comenzado.
+        start_time = time.time() ##  almacena el tiempo de inicio para calcular el tiempo transcurrido.
+
+        # Adquirir datos en segmentos de 1 segundo
+        for i in range(TIME):
+            chunk = task.read(number_of_samples_per_channel=FM)  ##Se lee la señal en bloques de 1000 muestras por segundo.
+            data[i * FM: (i + 1) * FM] = chunk  # Se almacenan los datos en la posición correspondiente del arreglo data.
+
+
+            elapsed = time.time() - start_time
+            print(f"Progreso: {i+1}/{TIME} segundos ({elapsed:.1f} s transcurridos)", end="\r") ## Se calcula y muestra el tiempo transcurrido para monitorear el progreso.
+
+
+    print("\nAdquisición completada.")
+    return data ## Al finalizar la adquisición, se imprime un mensaje y se devuelven los datos adquiridos.
+
+
+
+def verificar_datos(data): ## Comprueba si todos los valores en data son ceros, lo que indicaría una falla en la adquisición.
+    """ Verifica que los datos no sean solo ruido o ceros """
+    if np.all(data == 0):
+        print("No se detecta señal, verifica la conexión.")
+        return False
+    if np.std(data) < 0.001: ## detectar desviación estandar, Si la desviación estándar es muy baja, la señal es demasiado estable, lo que podría indicar una falla en la medición.
+        print(" Se detectaron datos que pueden no ser correctos")
+        return False ## si los datos no presentan anomalias
+    print("Señal detectada correctamente.")
+    return True
+
+def guardar_datos_npy(data, filename): ## Guarda los datos en un archivo .npy, para su posterior manipulación 
+    np.save(filename, data)
+    print(f"Datos guardados en {filename}")
+
+def graficar_datos(data):
+    """ Grafica la señal adquirida con una selección representativa si es muy grande """
+    tiempo = np.arange(0, len(data)) / FM  # Crear vector de tiempo, cada muestra representa un instante de tiempo
+
+    plt.figure(figsize=(12, 5))
+    
+    if len(data) > 50000:  # Si hay más de 50,000 puntos, graficar una muestra representativa (reducida para una mejor visualización)
+        step = len(data) // 50000
+        plt.plot(tiempo[::step], data[::step], label="Señal adquirida (muestra reducida)", color='b', linewidth=0.5)
+    else:
+        plt.plot(tiempo, data, label="Señal adquirida", color='b', linewidth=0.5)
+
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Voltaje (V)")
+    plt.title("Señal Adquirida desde DAQ ( 2 minutos)")
+    plt.legend()
+    plt.grid(True)
+    
+    plt.show()
+
+# Adquirir, verificar, guardar y graficar datos, se llama a loas funciones definidas para que se ejecuten
+datos = adquirir_datos()
+if verificar_datos(datos):
+    guardar_datos_npy(datos, FILENAME_NPY)
+    graficar_datos(datos)
+
+```
+
+
 
 
 
