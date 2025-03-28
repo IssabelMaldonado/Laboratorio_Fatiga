@@ -132,6 +132,8 @@ def filtrar_senal(senal, fs, lowcut=20, highcut=450): # Se crea la funcuón para
 
     
 ```
+![image](https://github.com/user-attachments/assets/f456c82a-13e9-4a89-821e-b4f96da4a626)
+
 
 ## Analísis de la señal a partir de la transformada de Fourier. 
 
@@ -169,3 +171,6 @@ Luego se calculo la transdormada individualmente para apliclarla ventana por ven
         mediana_freq = frecuencias[:ventana_size//2][np.where(suma_parcial >= total_potencia / 2)[0][0]]
         medianas.append(mediana_freq)
 ```
+
+![image](https://github.com/user-attachments/assets/517591c7-f695-4a40-8333-67bd333264da)
+
