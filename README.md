@@ -195,7 +195,8 @@ def prueba_hipotesis(medianas):
     t_stat, p_value = ttest_rel(grupo_inicial, grupo_final) # se usa ttest_rel() para comparar ambos grupos
 
 ```
-luego de esto se realiza el analisis por medio de python que dice si el valor de la prueba de hipotesis es menor a 0,05 se puede afirmar que el cambio fue significativo. 
+luego de esto se realiza el analisis por medio de python que dice si el valor de la prueba de hipotesis es menor a 0,05 se puede afirmar que el cambio fue significativo. esto se puede deber a diferentes facitres tales como: 
+al azar de los valores o a la diferencia de estos es decir que estàn alejados unos de otros. 
 
 ```bash
     if p_value < 0.05:
